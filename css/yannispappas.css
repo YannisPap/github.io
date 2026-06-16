@@ -1,46 +1,67 @@
 /* =============================================================
    Yannis Pappas — Design System
    Foundations: color, type, space, motion, surfaces
-   Dark, neutrals-only, single sans family.
+   Warm ivory paper, warm near-black ink, single clay accent.
+   Hanken Grotesk (voice) + JetBrains Mono (technical signal).
    ============================================================= */
 
 /* -------- Type imports ------------------------------------- */
-/* Inter Tight stands in for Söhne / Helvetica Now (licensed).  */
-/* JetBrains Mono used only for tabular metadata labels.        */
-@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+/* Hanken Grotesk + JetBrains Mono are the brand fonts (Google). */
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-  /* ----- Color: ink scale -------------------------------- */
-  /* Pure-ish neutrals with the slightest cool bias so the    */
-  /* page reads as "ink" not "soot". Saturation kept ≤0.005.  */
-  --ink-000: oklch(0.08 0.003 240);   /* page background      */
-  --ink-050: oklch(0.12 0.003 240);   /* card / raised        */
-  --ink-100: oklch(0.16 0.003 240);   /* hairline well        */
-  --ink-200: oklch(0.22 0.003 240);   /* borders, dividers    */
-  --ink-300: oklch(0.32 0.003 240);   /* inactive text, rule  */
-  --ink-400: oklch(0.46 0.003 240);   /* metadata, captions   */
-  --ink-500: oklch(0.60 0.003 240);   /* secondary text       */
-  --ink-600: oklch(0.74 0.003 240);   /* body                 */
-  --ink-700: oklch(0.86 0.003 240);   /* strong body          */
-  --ink-800: oklch(0.94 0.003 240);   /* headings             */
-  --ink-900: oklch(0.985 0.003 240);  /* emphasis, max white  */
+  /* ----- Color: warm ink ramp ---------------------------- */
+  /* Warm near-black stepped to faint, no cool greys.         */
+  --paper:        #f3efe6;   /* page background (ivory)       */
+  --paper-card:   #faf7f0;   /* raised card / panel           */
+  --paper-deep:   #eae3d5;   /* sunken wash / inset           */
 
-  /* ----- Semantic color aliases -------------------------- */
-  --bg:            var(--ink-000);
-  --bg-raised:     var(--ink-050);
-  --bg-well:       var(--ink-100);
+  --ink:          #1c1916;   /* primary text / headlines      */
+  --ink-70:       #4f4a41;   /* secondary / body              */
+  --ink-45:       #847c6f;   /* metadata / captions           */
+  --ink-25:       #b6ae9f;   /* disabled / faint              */
 
-  --fg:            var(--ink-700);   /* default body text    */
-  --fg-strong:     var(--ink-900);   /* headings, emphasis   */
-  --fg-muted:      var(--ink-500);   /* secondary            */
-  --fg-faint:      var(--ink-400);   /* metadata, captions   */
-  --fg-ghost:      var(--ink-300);   /* placeholders         */
+  /* ----- Inverse surfaces (the single dark moment) ------- */
+  --ink-surface:   #1b1813;  /* dark feature section bg       */
+  --ink-surface-2: #272219;  /* raised panel on dark          */
+  --on-ink:        #f3efe6;  /* primary text on dark          */
+  --on-ink-70:     #c4bdac;  /* secondary text on dark        */
+  --on-ink-45:     #8f897a;  /* muted text on dark            */
 
-  --rule:          var(--ink-200);   /* dividers             */
-  --rule-strong:   var(--ink-300);   /* emphasized dividers  */
+  /* ----- Hairlines & borders ----------------------------- */
+  --line:      #e3dccd;      /* default hairline              */
+  --line-soft: #ece6d9;      /* faint divider                */
+  --line-bold: #d2c8b4;      /* emphasized border            */
+  --line-ink:  rgba(243,239,230,0.14); /* hairline on dark    */
+
+  /* ----- Clay (the one accent) --------------------------- */
+  --clay:        #7a4a3a;    /* primary accent                */
+  --clay-deep:   #5d382b;    /* hover / accent text on paper  */
+  --clay-bright: #a3624a;    /* accent / links on dark        */
+  --clay-wash:   #ece0d6;    /* the only tinted background    */
+  --clay-line:   #d8c2b4;    /* accent hairline               */
+
+  /* ----- Semantic aliases (token architecture preserved) -- */
+  --bg:            var(--paper);
+  --bg-raised:     var(--paper-card);
+  --bg-well:       var(--paper-deep);
+
+  --fg:            var(--ink-70);   /* default body text     */
+  --fg-strong:     var(--ink);      /* headings, emphasis    */
+  --fg-muted:      var(--ink-70);   /* secondary (AA-safe)   */
+  --fg-faint:      var(--ink-45);   /* metadata, captions    */
+  --fg-ghost:      var(--ink-25);   /* placeholders          */
+
+  --rule:          var(--line);        /* dividers           */
+  --rule-strong:   var(--line-bold);   /* emphasized dividers*/
+
+  --accent:        var(--clay);
+  --accent-hover:  var(--clay-deep);
+  --accent-on-dark:var(--clay-bright);
+  --accent-wash:   var(--clay-wash);
 
   /* ----- Type families ----------------------------------- */
-  --font-sans: 'Inter Tight', 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
+  --font-sans: 'Hanken Grotesk', 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 
   /* ----- Type scale (modular, 1.250 minor third) --------- */
@@ -66,7 +87,7 @@
   --tr-h2:      -0.022em;
   --tr-h3:      -0.015em;
   --tr-body:     0;
-  --tr-label:    0.14em;   /* uppercase labels                */
+  --tr-label:    0.16em;   /* mono uppercase labels           */
   --tr-mono:     0;
 
   /* ----- Weights (single family, multiple weights) ------- */
@@ -75,8 +96,9 @@
   --w-medium:   500;
   --w-semibold: 600;
   --w-bold:     700;
+  --w-black:    800;
 
-  /* ----- Spacing (4px base, golden-ish progression) ------ */
+  /* ----- Spacing (4px base) ------------------------------ */
   --s-1:   4px;
   --s-2:   8px;
   --s-3:   12px;
@@ -94,35 +116,28 @@
   --container-narrow: 720px;
   --gutter:           var(--s-5);
 
-  /* ----- Border radii (deliberately small) --------------- */
+  /* ----- Border radii (restrained / architectural) ------- */
   --r-none: 0;
-  --r-sm:   2px;
-  --r-md:   4px;   /* maximum used                            */
+  --r-sm:   4px;
+  --r-md:   8px;
+  --r-lg:   14px;
 
   /* ----- Hairlines / borders ----------------------------- */
   --hairline: 1px solid var(--rule);
   --hairline-strong: 1px solid var(--rule-strong);
 
-  /* ----- Shadows ----------------------------------------- */
-  /* Used very sparingly. Dark mode = subtle glow upward.    */
-  --shadow-quiet: 0 1px 0 0 rgba(255,255,255,0.02) inset,
-                  0 0 0 1px var(--rule);
-  --shadow-lift:  0 1px 0 0 rgba(255,255,255,0.04) inset,
-                  0 0 0 1px var(--rule),
-                  0 24px 48px -24px rgba(0,0,0,0.6);
+  /* ----- Shadows (warm, low — borders preferred) --------- */
+  --shadow-quiet: 0 1px 1px rgba(28,25,22,0.04);
+  --shadow-lift:  0 4px 10px -4px rgba(28,25,22,0.10),
+                  0 12px 28px -12px rgba(28,25,22,0.12);
 
-  /* ----- Motion ------------------------------------------ */
-  /* Quiet, precise. No bounces.                              */
+  /* ----- Motion (quiet, expensive) ----------------------- */
   --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out:  cubic-bezier(0.65, 0, 0.35, 1);
-  --dur-fast:     120ms;
-  --dur-base:     220ms;
-  --dur-slow:     420ms;
-
-  /* ----- Lattice (signature motif) ----------------------- */
-  --lattice-dot:  oklch(0.32 0.003 240);
-  --lattice-size: 24px;
-  --lattice-radius: 0.6px;
+  --ease-std:     cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast:     140ms;
+  --dur-base:     240ms;
+  --dur-slow:     560ms;
 }
 
 /* =============================================================
@@ -135,7 +150,6 @@ html {
   font-family: var(--font-sans);
   font-size: var(--t-body);
   line-height: var(--lh-normal);
-  font-feature-settings: "ss01", "cv11", "tnum" 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -148,8 +162,8 @@ body {
 }
 
 ::selection {
-  background: var(--fg-strong);
-  color: var(--bg);
+  background: var(--clay-wash);
+  color: var(--ink);
 }
 
 /* ----- Display & headings --------------------------------- */
@@ -157,7 +171,7 @@ body {
 .display, h1.display {
   font-family: var(--font-sans);
   font-size: clamp(56px, 9vw, var(--t-display));
-  font-weight: var(--w-medium);
+  font-weight: var(--w-bold);
   line-height: var(--lh-tight);
   letter-spacing: var(--tr-display);
   color: var(--fg-strong);
@@ -167,7 +181,7 @@ body {
 h1, .h1 {
   font-family: var(--font-sans);
   font-size: var(--t-h1);
-  font-weight: var(--w-medium);
+  font-weight: var(--w-bold);
   line-height: var(--lh-tight);
   letter-spacing: var(--tr-h1);
   color: var(--fg-strong);
@@ -177,7 +191,7 @@ h1, .h1 {
 h2, .h2 {
   font-family: var(--font-sans);
   font-size: var(--t-h2);
-  font-weight: var(--w-medium);
+  font-weight: var(--w-semibold);
   line-height: var(--lh-snug);
   letter-spacing: var(--tr-h2);
   color: var(--fg-strong);
@@ -187,7 +201,7 @@ h2, .h2 {
 h3, .h3 {
   font-family: var(--font-sans);
   font-size: var(--t-h3);
-  font-weight: var(--w-medium);
+  font-weight: var(--w-semibold);
   line-height: var(--lh-snug);
   letter-spacing: var(--tr-h3);
   color: var(--fg-strong);
@@ -223,10 +237,10 @@ p, .body {
   letter-spacing: -0.01em;
 }
 
-/* ----- Metadata label (small caps via uppercase) ---------- */
+/* ----- Metadata label (mono eyebrow) ---------------------- */
 
 .label, .eyebrow {
-  font-family: var(--font-sans);
+  font-family: var(--font-mono);
   font-size: var(--t-micro);
   font-weight: var(--w-medium);
   line-height: 1;
@@ -277,7 +291,8 @@ a {
 }
 
 a:hover {
-  border-bottom-color: var(--fg-strong);
+  border-bottom-color: var(--clay);
+  color: var(--clay-deep);
 }
 
 /* ----- Rules ---------------------------------------------- */
@@ -286,23 +301,4 @@ hr, .rule {
   border: 0;
   border-top: var(--hairline);
   margin: 0;
-}
-
-/* ----- Lattice motif (signature) -------------------------- */
-/* A faint dot grid; use as section markers or background.    */
-
-.lattice {
-  background-image: radial-gradient(
-    var(--lattice-dot) var(--lattice-radius),
-    transparent calc(var(--lattice-radius) + 0.5px)
-  );
-  background-size: var(--lattice-size) var(--lattice-size);
-}
-
-.lattice-dense {
-  --lattice-size: 12px;
-}
-
-.lattice-sparse {
-  --lattice-size: 48px;
 }
