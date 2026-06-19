@@ -10,7 +10,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Yannis Pappas, Head of Data & AI. I lead data & AI teams and architect production AI systems, from strategy to shipped product. Currently focused on applied LLMs and agentic AI." />
+<meta name="description" content="Yannis Pappas, Head of Data & AI. I lead a data team, architect production AI, and build the access-governance that makes it safe to deploy. The bridge between business and engineering, focused on applied LLMs and agentic AI." />
 <title>Yannis Pappas</title>
 <link rel="stylesheet" href="css/yannispappas.css" />
 <style>
@@ -81,7 +81,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     color: var(--fg-strong);
     margin: 0 0 28px;
   }
-  .hero h1 .quiet { color: var(--ink-45); }
+  .hero h1 .quiet { color: var(--ink-70); }
 
   .hero-lede {
     font-size: 19px;
@@ -113,6 +113,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .hero-right .hero-meta {
     border-left: 0; padding-left: 0;
     border-top: 1px solid var(--rule); padding-top: 22px;
+  }
+
+  /* ---- hero entrance (one-time) ---- */
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .hero-eyebrow, .hero h1, .hero-lede, .hero-right {
+    opacity: 0;
+    animation: rise var(--dur-slow) var(--ease-out) both;
+  }
+  .hero-eyebrow { animation-delay: 60ms; }
+  .hero h1      { animation-delay: 150ms; }
+  .hero-lede    { animation-delay: 250ms; }
+  .hero-right   { animation-delay: 340ms; }
+  .hero-eyebrow .dot {
+    transform: scaleX(0); transform-origin: left center;
+    animation: draw var(--dur-slow) var(--ease-out) 520ms both;
   }
 
   /* ---- worked-with band ---- */
@@ -171,6 +187,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .globe-legend b { font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); }
   .globe-legend em { margin-left: auto; font-style: normal; font-size: 11px; letter-spacing: 0.04em; color: var(--ink-45); }
+  .globe-caption {
+    font-size: 13px; line-height: 1.55; color: var(--fg-muted);
+    margin: 0; max-width: 42ch; letter-spacing: -0.005em;
+  }
+  .globe-legend i.dash {
+    width: 18px; height: 0; border-radius: 0;
+    background: none; box-shadow: none;
+    border-top: 1.5px dashed var(--clay);
+  }
   .about-prose p {
     font-size: 18px;
     line-height: 1.7;
@@ -248,11 +273,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     border-top: 1px solid var(--rule);
     align-items: baseline;
     cursor: pointer;
+    position: relative;
     counter-increment: exp;
     transition: background var(--dur-base) var(--ease-out);
   }
   .exp-row:hover { background: linear-gradient(to right, var(--clay-wash), transparent 42%); }
   .exp-row:hover .arrow { color: var(--clay); transform: translateX(3px); }
+  .exp-row::after {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+    background: var(--clay); transform: scaleY(0); transform-origin: top;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+  .exp-row:hover::after, .exp-row.open::after { transform: scaleY(1); }
   .exp-row .when {
     font-family: var(--font-mono); font-size: 12px; color: var(--fg-faint); font-variant-numeric: tabular-nums;
   }
@@ -278,6 +310,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     display: none;
   }
   .exp-row.open .exp-detail { display: block; }
+  /* JS-upgraded animated accordion (height set inline by JS) */
+  .exp-list.anim .exp-detail {
+    display: block;
+    margin-top: 0; padding-top: 0; border-top: 0;
+    height: 0; overflow: hidden; opacity: 0;
+    transition: height var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out);
+  }
+  .exp-list.anim .exp-row.open .exp-detail { opacity: 1; }
+  .exp-list.anim .exp-detail-inner { padding-top: 18px; border-top: 1px solid var(--line-soft); }
   .exp-row.open .arrow { transform: rotate(90deg); color: var(--clay); }
   .exp-detail p { font-size: 15px; line-height: 1.65; color: var(--fg); margin: 0 0 12px; max-width: 64ch; }
   .exp-detail ul { padding: 0; margin: 12px 0 0; list-style: none; display: grid; gap: 10px; max-width: 64ch; }
@@ -326,7 +367,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .contact-cta a.big-link {
     font-family: var(--font-sans);
-    font-size: clamp(26px, 3vw, 40px);
+    font-size: clamp(24px, 2.4vw, 34px);
     font-weight: 600;
     letter-spacing: -0.025em;
     color: var(--on-ink);
@@ -337,7 +378,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     display: inline-flex; align-items: baseline; gap: 10px;
     transition: border-color var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
   }
-  .contact-cta a.big-link:hover { border-bottom-color: var(--clay-bright); color: var(--clay-bright); }
+  .contact-cta a.big-link { position: relative; }
+  .contact-cta a.big-link::before {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
+    background: var(--clay-bright); transform: scaleX(0); transform-origin: left;
+    transition: transform var(--dur-base) var(--ease-out);
+  }
+  .contact-cta a.big-link:hover::before { transform: scaleX(1); }
+  .contact-cta a.big-link:hover { color: var(--clay-bright); }
   .contact-cta a.big-link .slash { color: var(--on-ink-45); font-weight: 400; }
   .contact-cta a.big-link .arrow { color: var(--clay-bright); font-size: 0.55em; transform: translateY(-0.25em); }
   .contact-foot {
@@ -366,6 +414,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   footer .colophon { font-family: var(--font-mono); font-size: 11px; color: var(--fg-faint); }
   footer .build { font-family: var(--font-mono); font-size: 11px; color: var(--fg-faint); font-variant-numeric: tabular-nums; }
+
+  /* ---- micro-typography ---- */
+  html { hanging-punctuation: first last; }
+  .hero h1, .section-title { text-wrap: balance; }
+  .hero-meta .v, .section-count, .nav-links .num { font-variant-numeric: tabular-nums; }
+
+  /* ---- reduced motion ---- */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-eyebrow, .hero h1, .hero-lede, .hero-right { opacity: 1 !important; transform: none !important; animation: none !important; }
+    .hero-eyebrow .dot { transform: none !important; animation: none !important; }
+    .exp-list.anim .exp-detail { transition: none !important; }
+    .exp-row::after, .contact-cta a.big-link::before { transition: none !important; }
+  }
 
   /* responsive */
   @media (max-width: 880px) {
@@ -404,9 +465,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <span class="dot"></span>
           <span>Athens · available worldwide</span>
         </div>
-        <h1>I build production <span class="quiet">Data</span> &amp; <span class="quiet">AI</span> systems, and lead the teams behind them.</h1>
+        <h1><span class="quiet">I build production</span> Data &amp; AI <span class="quiet">systems, and lead the teams behind them.</span></h1>
         <p class="hero-lede">
-          I lead the data &amp; AI function at CGTrader, and co-founded an AI company. Plenty of it runs in production: visual search, pricing models, LLM agents, an LLM-orchestrated valuation engine. A decade-plus end to end, now focused on applied LLMs and agentic AI.
+          I lead the data team at CGTrader, and co-founded an AI company. I work as the bridge between business and engineering, and I still ship: visual search, pricing models, LLM agents, an LLM-orchestrated valuation engine, and the access-governance layer that keeps them safe to deploy. A decade-plus end to end, now focused on applied LLMs, agentic AI, and AI governance.
         </p>
       </div>
       <div class="hero-right">
@@ -415,7 +476,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="row"><span class="k">role</span><span class="v">Head of Data &amp; AI</span></div>
           <div class="row"><span class="k">exp</span><span class="v">10+ yrs · teams &amp; systems</span></div>
           <div class="row"><span class="k">also</span><span class="v">Co-founder · board advisor</span></div>
-          <div class="row"><span class="k">reach</span><span class="v"><a href="https://www.linkedin.com/in/ypappas">linkedin ↗</a></span></div>
+          <div class="row"><span class="k">reach</span><span class="v"><a href="https://www.linkedin.com/in/yannispappas">linkedin ↗</a></span></div>
         </div>
       </div>
     </section>
@@ -436,14 +497,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="about-prose">
         <span class="section-eyebrow">01 · About</span>
         <p>Engineer first, leader by trajectory. A decade-plus building data &amp; AI end to end: warehouses, pipelines, ML systems, and lately LLM-orchestrated agents in production. These days I spend as much time on strategy, architecture, and the people who ship. I'm drawn to problems where the answer isn't obvious.</p>
-        <p class="muted">At CGTrader, I lead the data team across engineering, science, and analytics for the Marketplace, CGDream (browser-based 3D AI generator), and Modelry. I own the data &amp; AI roadmap and ship it. I architected the company's 300+ model dbt warehouse on BigQuery and put applied AI into production: CLIP-based visual search for 3D models, a real-time price-suggestion service for sellers, and two LangGraph + Claude agents that handle internal data requests end to end.</p>
-        <p class="muted">Before that, I led Data Science and Machine Learning at Reccodo, where my team owned recommendation and personalised search end to end. We moved recommendations off heuristic and matrix-factorisation baselines onto embedding-based retrieval with learning-to-rank reranking (two-tower architecture, online serving). I built the MLOps backbone, so the team could ship instead of wrangling infrastructure.</p>
+        <p class="muted">At CGTrader, I lead the data team across engineering, science, and analytics for the Marketplace, CGDream (browser-based 3D AI generator), and Modelry. I own the data &amp; AI roadmap and ship it. I architected the company's 300+ model dbt warehouse on BigQuery and put applied AI into production: CLIP-based visual search for 3D models, a real-time price-suggestion service for sellers, and two LangGraph + Claude agents that handle internal data requests end to end. I also built our AI access-governance layer from scratch, so the team can work with real data without exposing it.</p>
+        <p class="muted">Previously, I led Data Science and Machine Learning at Reccodo, where my team owned recommendation and personalised search end to end. We moved recommendations off heuristic and matrix-factorisation baselines onto embedding-based retrieval with learning-to-rank reranking (two-tower architecture, online serving). I built the MLOps backbone, so the team could ship instead of wrangling infrastructure.</p>
         <p class="muted">Alongside that, I co-founded Sinequity, Greece's first marketplace for buying and selling SMBs, and built its entire data &amp; AI foundation from zero around an LLM-orchestrated valuation engine. I also sit on ITeQ's board, advising on data &amp; AI strategy.</p>
         <p class="muted">I still work hands-on, close enough to the build to make the calls that matter while owning the strategy and the stakeholders. I like hard problems, and teams that ship.</p>
       </div>
       <div class="globe-wrap">
         <span class="section-eyebrow">Worked across</span>
-        <canvas class="globe" role="img" aria-label="Slowly rotating globe with markers at California, Athens, Vilnius, Singapore, and Jakarta"></canvas>
+        <p class="globe-caption">Five markets, three continents: carrier-scale telco analytics in Southeast Asia, ed-tech mentoring in the US, and a 3D marketplace in the Baltics.</p>
+        <canvas class="globe" role="img" aria-label="Slowly rotating globe with markers at California, Athens, Vilnius, Singapore, and Jakarta, and dashed lines from Athens to Vilnius and to California marking remote work"></canvas>
+        <div class="globe-legend">
+          <span><i class="dash"></i><b>Remote</b><em>Athens to Vilnius and California</em></span>
+        </div>
       </div>
     </section>
 
@@ -462,14 +527,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="exp-row open" data-toggle>
           <span class="when">2022 – present</span>
           <div>
-            <div class="role-title">Analytics Engineering Team Lead</div>
+            <div class="role-title">Data Team Lead</div>
             <div class="company">CGTrader</div>
             <div class="exp-detail">
               <p>I lead the data team across engineering, science, and analytics for CGTrader's Marketplace, CGDream (browser-based 3D AI generator), and Modelry. I set the data &amp; AI roadmap and ship it. Player-coach: hands-on with architecture, code review, and modelling, alongside hiring, mentoring, and stakeholder work with product and the C-suite.</p>
               <ul>
                 <li>Architected the company's 300+ model dbt warehouse on BigQuery</li>
-                <li>Shipped CLIP-based visual search for 3D models, and a real-time price suggestion service for sellers</li>
+                <li>Shipped CLIP-based visual search for 3D models, and a real-time price-suggestion service for sellers</li>
                 <li>Built two LangGraph + Claude agents that handle internal data requests end to end</li>
+                <li>Built our AI access-governance layer from scratch: an OAuth 2.1 MCP gateway with per-connector access control and a PII-masked analytics dataset</li>
               </ul>
             </div>
           </div>
@@ -480,7 +546,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="exp-row" data-toggle>
           <span class="when">2025 – present</span>
           <div>
-            <div class="role-title">Co‑Founder · Data &amp; AI</div>
+            <div class="role-title">Co-Founder · Data &amp; AI</div>
             <div class="company">Sinequity</div>
             <div class="exp-detail">
               <p>Greece's first marketplace for buying and selling SMBs, built around an LLM-orchestrated valuation engine, agentic enrichment workflows, and a data warehouse over the Greek business registry. I built the data &amp; AI foundation from zero. Ongoing involvement is oversight-level while my co-founder runs operations.</p>
@@ -496,7 +562,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="role-title">Board Member</div>
             <div class="company">ITeQ SA</div>
             <div class="exp-detail">
-              <p>Advise management on data and AI strategy across the company's pharmacy network and SaaS platforms.</p>
+              <p>Advise management on data &amp; AI strategy across the company's pharmacy network and SaaS platforms.</p>
             </div>
           </div>
           <span class="where">athens</span>
@@ -526,7 +592,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="role-title">ML Engineer</div>
             <div class="company">Reccodo</div>
             <div class="exp-detail">
-              <p>Built and shipped the personalised search engine: ElasticSearch retrieval with a personalisation layer that tailored results per user via product embeddings and Redis-backed user profile vectors. Maintained the deployed ML estate and rebuilt hot paths into vectorised implementations to keep inference fast as the catalogue grew.</p>
+              <p>Built and shipped the personalised search engine: Elasticsearch retrieval with a personalisation layer that tailored results per user via product embeddings and Redis-backed user profile vectors. Maintained the deployed ML estate and rebuilt hot paths into vectorised implementations to keep inference fast as the catalogue grew.</p>
             </div>
           </div>
           <span class="where">athens</span>
@@ -539,7 +605,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <div class="role-title">Data Analytics Mentor</div>
             <div class="company">Udacity</div>
             <div class="exp-detail">
-              <p>Mentored students through the Data Analyst Nanodegree: 1:1 guidance on projects, code review, and translating advanced concepts for varied levels of audience sophistication.</p>
+              <p>Mentored students through the Data Analyst Nanodegree: 1:1 guidance on projects, code review, and translating advanced concepts for students at very different levels.</p>
             </div>
           </div>
           <span class="where">california · remote</span>
@@ -570,8 +636,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <h2>Open to <span class="quiet">interesting conversations.</span></h2>
         <div class="contact-cta">
           <span class="k">Reach me on</span>
-          <a class="big-link" href="https://www.linkedin.com/in/ypappas">
-            <span class="slash">linkedin.com/in/</span><span>ypappas</span><span class="arrow">↗</span>
+          <a class="big-link" href="https://www.linkedin.com/in/yannispappas">
+            <span class="slash">linkedin.com/in/</span><span>yannispappas</span><span class="arrow">↗</span>
           </a>
         </div>
       </div>
@@ -583,7 +649,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </div>
         <div class="item">
           <span class="k">Best for</span>
-          <span class="v">AI leadership &amp; strategy, production AI architecture, and genuinely hard problems.</span>
+          <span class="v">AI leadership &amp; strategy, production AI architecture, AI governance, and genuinely hard problems.</span>
         </div>
         <div class="item">
           <span class="k">CV</span>
@@ -600,9 +666,46 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </div>
 
   <script>
-    document.querySelectorAll('[data-toggle]').forEach(row => {
-      row.addEventListener('click', () => row.classList.toggle('open'));
-    });
+    (function () {
+      const list = document.querySelector('.exp-list');
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (list) {
+        list.querySelectorAll('.exp-detail').forEach(d => {
+          const inner = document.createElement('div');
+          inner.className = 'exp-detail-inner';
+          while (d.firstChild) inner.appendChild(d.firstChild);
+          d.appendChild(inner);
+        });
+        list.classList.add('anim');
+        list.querySelectorAll('.exp-row').forEach(row => {
+          const d = row.querySelector('.exp-detail');
+          if (d) d.style.height = row.classList.contains('open') ? 'auto' : '0px';
+        });
+      }
+      document.querySelectorAll('[data-toggle]').forEach(row => {
+        row.addEventListener('click', () => {
+          const d = row.querySelector('.exp-detail');
+          const opening = !row.classList.contains('open');
+          if (!d || reduce) {
+            row.classList.toggle('open');
+            if (d) d.style.height = opening ? 'auto' : '0px';
+            return;
+          }
+          if (opening) {
+            row.classList.add('open');
+            const target = d.scrollHeight;
+            d.style.height = '0px';
+            requestAnimationFrame(() => { d.style.height = target + 'px'; });
+            d.addEventListener('transitionend', function done(e) {
+              if (e.propertyName === 'height') { d.style.height = 'auto'; d.removeEventListener('transitionend', done); }
+            });
+          } else {
+            d.style.height = d.scrollHeight + 'px';
+            requestAnimationFrame(() => { row.classList.remove('open'); d.style.height = '0px'; });
+          }
+        });
+      });
+    })();
 
     const sections = ['about', 'experience', 'contact'];
     const navLinks = document.querySelectorAll('.nav-links a');
@@ -680,6 +783,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         ctx.lineWidth = front ? 1.5 : 1.1;
         for (const land of LAND){ const pts = land.map(c => project(c[1], c[0])); poly(pts, front); }
       }
+      function cityByName(n){ for (const c of cities) if (c.n === n) return c; }
+      function remoteArc(a, b){
+        const D2R = Math.PI / 180, R2D = 180 / Math.PI, segs = 64;
+        const vec = c => [Math.cos(c.lat*D2R)*Math.sin(c.lon*D2R), Math.sin(c.lat*D2R), Math.cos(c.lat*D2R)*Math.cos(c.lon*D2R)];
+        const va = vec(a), vb = vec(b);
+        let dot = va[0]*vb[0] + va[1]*vb[1] + va[2]*vb[2];
+        dot = Math.max(-1, Math.min(1, dot));
+        const om = Math.acos(dot);
+        ctx.beginPath();
+        let on = false;
+        for (let i = 0; i <= segs; i++){
+          const t = i / segs;
+          let x, y, z;
+          if (om < 1e-6){ x = va[0]; y = va[1]; z = va[2]; }
+          else { const s1 = Math.sin((1-t)*om)/Math.sin(om), s2 = Math.sin(t*om)/Math.sin(om); x = s1*va[0]+s2*vb[0]; y = s1*va[1]+s2*vb[1]; z = s1*va[2]+s2*vb[2]; }
+          const p = project(Math.asin(Math.max(-1, Math.min(1, y)))*R2D, Math.atan2(x, z)*R2D);
+          if (p.z > 0){ on ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y); on = true; } else on = false;
+        }
+        ctx.stroke();
+      }
       function draw(){
         ctx.clearRect(0, 0, size, size);
         ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2);
@@ -688,6 +811,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         ctx.strokeStyle = '#cdc1ac'; continents(false);
         ctx.strokeStyle = '#e0d8c6'; graticule(true);
         ctx.strokeStyle = '#857c6f'; continents(true);
+        ctx.save();
+        ctx.setLineDash([2, 4]); ctx.lineWidth = 1.4; ctx.strokeStyle = 'rgba(122,74,58,0.65)';
+        remoteArc(cityByName('Athens'), cityByName('Vilnius'));
+        remoteArc(cityByName('Athens'), cityByName('California'));
+        ctx.restore();
         ctx.lineWidth = 1.2; ctx.strokeStyle = '#c2b59c';
         ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2); ctx.stroke();
         ctx.font = '600 11px "JetBrains Mono", ui-monospace, monospace';
